@@ -1,0 +1,91 @@
+name: HealthPulse
+options:
+  bundleIdPrefix: com.healthpulse
+  deploymentTarget:
+    iOS: "17.0"
+    watchOS: "10.0"
+  xcodeVersion: "15.0"
+  generateEmptyDirectories: true
+  groupSortPosition: top
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    DEVELOPMENT_TEAM: ""
+
+targets:
+
+  # ==========================================
+  # iPhone App Target
+  # ==========================================
+  HealthPulse:
+    type: application
+    platform: iOS
+    sources:
+      - path: iPhone
+        group: iPhone
+      - path: Shared
+        group: Shared
+    settings:
+      base:
+        INFOPLIST_FILE: iPhone/App/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.healthpulse.app
+        TARGETED_DEVICE_FAMILY: "1"
+        SWIFT_EMIT_LOC_STRINGS: "YES"
+        CODE_SIGN_ENTITLEMENTS: iPhone/App/HealthPulse.entitlements
+    entitlements:
+      path: iPhone/App/HealthPulse.entitlements
+      properties:
+        com.apple.developer.healthkit: true
+        com.apple.developer.healthkit.access: []
+    info:
+      path: iPhone/App/Info.plist
+      properties:
+        CFBundleDisplayName: HealthPulse
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        UILaunchScreen: {}
+        NSHealthShareUsageDescription: "HealthPulse needs access to your health data to calculate Recovery, Sleep, Exertion scores and monitor health metrics."
+        NSHealthUpdateUsageDescription: "HealthPulse does not write any health data."
+    dependencies:
+      - target: HealthPulseWatch
+    scheme:
+      testTargets: []
+      gatherCoverageData: false
+
+  # ==========================================
+  # Apple Watch App Target
+  # ==========================================
+  HealthPulseWatch:
+    type: application
+    platform: watchOS
+    sources:
+      - path: Watch
+        group: Watch
+      - path: Shared
+        group: Shared
+    settings:
+      base:
+        INFOPLIST_FILE: Watch/App/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.healthpulse.app.watchkitapp
+        TARGETED_DEVICE_FAMILY: "4"
+        SWIFT_EMIT_LOC_STRINGS: "YES"
+        CODE_SIGN_ENTITLEMENTS: Watch/App/HealthPulseWatch.entitlements
+        WATCHOS_DEPLOYMENT_TARGET: "10.0"
+    entitlements:
+      path: Watch/App/HealthPulseWatch.entitlements
+      properties:
+        com.apple.developer.healthkit: true
+        com.apple.developer.healthkit.access: []
+    info:
+      path: Watch/App/Info.plist
+      properties:
+        CFBundleDisplayName: HealthPulse
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        WKApplication: true
+        NSHealthShareUsageDescription: "HealthPulse needs access to your health data to show Recovery, Exertion, and Energy scores."
+        NSHealthUpdateUsageDescription: "HealthPulse does not write any health data."
+    scheme:
+      testTargets: []
+      gatherCoverageData: false
