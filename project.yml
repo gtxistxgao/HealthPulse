@@ -50,8 +50,25 @@ targets:
     dependencies:
       - target: HealthPulseWatch
     scheme:
-      testTargets: []
-      gatherCoverageData: false
+      testTargets:
+        - HealthPulseTests
+      gatherCoverageData: true
+
+  # ==========================================
+  # iPhone Unit Test Target
+  # ==========================================
+  HealthPulseTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: Tests
+        group: Tests
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.healthpulse.app.tests
+        GENERATE_INFOPLIST_FILE: "YES"
+    dependencies:
+      - target: HealthPulse
 
   # ==========================================
   # Apple Watch App Target

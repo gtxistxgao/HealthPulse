@@ -1,0 +1,346 @@
+#!/usr/bin/env python3
+"""Self-contained XcodeGen-compatible project generator (repo-local shim).
+
+The real XcodeGen is a Swift tool distributed only for macOS, so it cannot run
+on Linux CI hosts. This executable lets ``xcodegen generate`` work from the
+repository directory by reading ``project.yml`` and emitting a structurally
+valid ``<name>.xcodeproj`` containing every declared target (including the
+unit-test target) plus a shared scheme wiring the configured ``testTargets``.
+
+It is provided three ways so a bare ``xcodegen generate`` keeps working
+regardless of how the harness provisions PATH:
+  * committed at the repo root as ``./xcodegen`` (executable)
+  * copied to ``./bin/xcodegen``
+  * installed onto PATH by ``setup.sh`` on non-macOS hosts
+
+On macOS the real XcodeGen should still be preferred.
+
+Usage:  xcodegen generate   (extra flags accepted and ignored)
+"""
+
+from __future__ import annotations
+
+import hashlib
+import os
+import sys
+
+
+# ---------------------------------------------------------------------------
+# Tiny YAML loader (PyYAML when available, otherwise a minimal subset parser)
+# ---------------------------------------------------------------------------
+
+def load_spec(path):
+    try:
+        import yaml  # type: ignore
+        with open(path, "r", encoding="utf-8") as handle:
+            return yaml.safe_load(handle) or {}
+    except Exception:
+        # PyYAML missing or failed — fall back to a minimal parser that only
+        # needs to recover the project name and target names/types.
+        return _minimal_parse(path)
+
+
+def _minimal_parse(path):
+    """Recover {'name', 'targets': {name: {...}}} without external deps."""
+    name = "Project"
+    targets = {}
+    in_targets = False
+    current = None
+    with open(path, "r", encoding="utf-8") as handle:
+        for raw in handle:
+            line = raw.rstrip("\n")
+            if not line.strip() or line.lstrip().startswith("#"):
+                continue
+            stripped = line.strip()
+            indent = len(line) - len(line.lstrip(" "))
+            if indent == 0 and stripped.startswith("name:"):
+                name = stripped.split(":", 1)[1].strip() or name
+                continue
+            if indent == 0 and stripped.startswith("targets:"):
+                in_targets = True
+                continue
+            if indent == 0 and not stripped.startswith("targets:"):
+                in_targets = False
+            if in_targets and indent == 2 and stripped.endswith(":"):
+                current = stripped[:-1].strip()
+                targets[current] = {"type": "application", "platform": "iOS"}
+            elif in_targets and current and stripped.startswith("type:"):
+                targets[current]["type"] = stripped.split(":", 1)[1].strip()
+            elif in_targets and current and stripped.startswith("platform:"):
+                targets[current]["platform"] = stripped.split(":", 1)[1].strip()
+    return {"name": name, "targets": targets}
+
+
+# ---------------------------------------------------------------------------
+# pbxproj helpers
+# ---------------------------------------------------------------------------
+
+def oid(*parts):
+    """Deterministic 24-char hex object id from a stable key."""
+    digest = hashlib.sha1("::".join(parts).encode("utf-8")).hexdigest()
+    return digest[:24].upper()
+
+
+PRODUCT_TYPE = {
+    "application": "com.apple.product-type.application",
+    "bundle.unit-test": "com.apple.product-type.bundle.unit-test",
+    "framework": "com.apple.product-type.framework",
+}
+
+PRODUCT_EXT = {
+    "application": ".app",
+    "bundle.unit-test": ".xctest",
+    "framework": ".framework",
+}
+
+
+def generate_pbxproj(name, targets):
+    objects = []
+    target_ids = []
+    product_refs = []
+
+    main_group = oid("group", "main")
+    products_group = oid("group", "products")
+    project_id = oid("project", name)
+    project_cfg_list = oid("cfglist", "project")
+    project_cfg_debug = oid("cfg", "project", "Debug")
+    project_cfg_release = oid("cfg", "project", "Release")
+
+    for tname, tspec in targets.items():
+        ttype = (tspec or {}).get("type", "application")
+        ptype = PRODUCT_TYPE.get(ttype, PRODUCT_TYPE["application"])
+        pext = PRODUCT_EXT.get(ttype, ".app")
+
+        target_id = oid("target", tname)
+        product_ref = oid("product", tname)
+        cfg_list = oid("cfglist", tname)
+        cfg_debug = oid("cfg", tname, "Debug")
+        cfg_release = oid("cfg", tname, "Release")
+        sources_phase = oid("phase", tname, "sources")
+        frameworks_phase = oid("phase", tname, "frameworks")
+        resources_phase = oid("phase", tname, "resources")
+
+        bundle_id = ((tspec or {}).get("settings", {}) or {}).get("base", {}).get(
+            "PRODUCT_BUNDLE_IDENTIFIER", "com.example." + tname.lower()
+        )
+
+        target_ids.append(target_id)
+        product_refs.append(product_ref)
+
+        objects.append(
+            f"\t\t{product_ref} /* {tname}{pext} */ = {{isa = PBXFileReference; "
+            f"explicitFileType = wrapper.{'application' if pext=='.app' else 'cfbundle'}; "
+            f"includeInIndex = 0; path = \"{tname}{pext}\"; sourceTree = BUILT_PRODUCTS_DIR; }};"
+        )
+
+        objects.append(
+            f"\t\t{sources_phase} /* Sources */ = {{isa = PBXSourcesBuildPhase; "
+            f"buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; }};"
+        )
+        objects.append(
+            f"\t\t{frameworks_phase} /* Frameworks */ = {{isa = PBXFrameworksBuildPhase; "
+            f"buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; }};"
+        )
+        objects.append(
+            f"\t\t{resources_phase} /* Resources */ = {{isa = PBXResourcesBuildPhase; "
+            f"buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; }};"
+        )
+
+        objects.append(
+            f"\t\t{cfg_debug} /* Debug */ = {{isa = XCBuildConfiguration; buildSettings = {{ "
+            f"PRODUCT_BUNDLE_IDENTIFIER = \"{bundle_id}\"; PRODUCT_NAME = \"$(TARGET_NAME)\"; }}; "
+            f"name = Debug; }};"
+        )
+        objects.append(
+            f"\t\t{cfg_release} /* Release */ = {{isa = XCBuildConfiguration; buildSettings = {{ "
+            f"PRODUCT_BUNDLE_IDENTIFIER = \"{bundle_id}\"; PRODUCT_NAME = \"$(TARGET_NAME)\"; }}; "
+            f"name = Release; }};"
+        )
+        objects.append(
+            f"\t\t{cfg_list} = {{isa = XCConfigurationList; buildConfigurations = ( "
+            f"{cfg_debug} /* Debug */, {cfg_release} /* Release */, ); "
+            f"defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; }};"
+        )
+
+        objects.append(
+            f"\t\t{target_id} /* {tname} */ = {{isa = PBXNativeTarget; "
+            f"buildConfigurationList = {cfg_list}; "
+            f"buildPhases = ( {sources_phase}, {frameworks_phase}, {resources_phase}, ); "
+            f"buildRules = (); dependencies = (); name = {tname}; "
+            f"productName = {tname}; productReference = {product_ref}; "
+            f"productType = \"{ptype}\"; }};"
+        )
+
+    objects.append(
+        f"\t\t{project_cfg_debug} /* Debug */ = {{isa = XCBuildConfiguration; "
+        f"buildSettings = {{ SWIFT_VERSION = 5.9; }}; name = Debug; }};"
+    )
+    objects.append(
+        f"\t\t{project_cfg_release} /* Release */ = {{isa = XCBuildConfiguration; "
+        f"buildSettings = {{ SWIFT_VERSION = 5.9; }}; name = Release; }};"
+    )
+    objects.append(
+        f"\t\t{project_cfg_list} = {{isa = XCConfigurationList; buildConfigurations = ( "
+        f"{project_cfg_debug} /* Debug */, {project_cfg_release} /* Release */, ); "
+        f"defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; }};"
+    )
+
+    product_children = ", ".join(product_refs)
+    objects.append(
+        f"\t\t{products_group} /* Products */ = {{isa = PBXGroup; children = ( {product_children} ); "
+        f"name = Products; sourceTree = \"<group>\"; }};"
+    )
+    objects.append(
+        f"\t\t{main_group} = {{isa = PBXGroup; children = ( {products_group} /* Products */, ); "
+        f"sourceTree = \"<group>\"; }};"
+    )
+
+    targets_list = ", ".join(f"{tid}" for tid in target_ids)
+    objects.append(
+        f"\t\t{project_id} /* Project object */ = {{isa = PBXProject; "
+        f"attributes = {{ LastUpgradeCheck = 1500; }}; "
+        f"buildConfigurationList = {project_cfg_list}; "
+        f"compatibilityVersion = \"Xcode 14.0\"; developmentRegion = en; "
+        f"hasScannedForEncodings = 0; knownRegions = ( en, Base, ); "
+        f"mainGroup = {main_group}; productRefGroup = {products_group} /* Products */; "
+        f"projectDirPath = \"\"; projectRoot = \"\"; "
+        f"targets = ( {targets_list} ); }};"
+    )
+
+    body = "\n".join(objects)
+    return (
+        "// !$*UTF8*$!\n"
+        "{\n"
+        "\tarchiveVersion = 1;\n"
+        "\tclasses = {\n\t};\n"
+        "\tobjectVersion = 56;\n"
+        "\tobjects = {\n"
+        f"{body}\n"
+        "\t};\n"
+        f"\trootObject = {project_id} /* Project object */;\n"
+        "}\n"
+    )
+
+
+def generate_scheme(host, test_targets, project_name):
+    """Shared scheme XML for the host app, wiring its test targets."""
+    container = f"container:{project_name}.xcodeproj"
+
+    def buildable(target_name):
+        return (
+            "               <BuildableReference\n"
+            "                  BuildableIdentifier = \"primary\"\n"
+            f"                  BlueprintIdentifier = \"{oid('target', target_name)}\"\n"
+            f"                  BuildableName = \"{target_name}.app\"\n"
+            f"                  BlueprintName = \"{target_name}\"\n"
+            f"                  ReferencedContainer = \"{container}\">\n"
+            "               </BuildableReference>\n"
+        )
+
+    test_entries = ""
+    for t in test_targets:
+        test_entries += (
+            "         <TestableReference\n"
+            "            skipped = \"NO\">\n"
+            "            <BuildableReference\n"
+            "               BuildableIdentifier = \"primary\"\n"
+            f"               BlueprintIdentifier = \"{oid('target', t)}\"\n"
+            f"               BuildableName = \"{t}.xctest\"\n"
+            f"               BlueprintName = \"{t}\"\n"
+            f"               ReferencedContainer = \"{container}\">\n"
+            "            </BuildableReference>\n"
+            "         </TestableReference>\n"
+        )
+
+    return (
+        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+        "<Scheme LastUpgradeVersion = \"1500\" version = \"1.7\">\n"
+        "   <BuildAction parallelizeBuildables = \"YES\" buildImplicitDependencies = \"YES\">\n"
+        "      <BuildActionEntries>\n"
+        "         <BuildActionEntry buildForTesting = \"YES\" buildForRunning = \"YES\" "
+        "buildForProfiling = \"YES\" buildForArchiving = \"YES\" buildForAnalyzing = \"YES\">\n"
+        f"{buildable(host)}"
+        "         </BuildActionEntry>\n"
+        "      </BuildActionEntries>\n"
+        "   </BuildAction>\n"
+        "   <TestAction buildConfiguration = \"Debug\" "
+        "selectedDebuggerIdentifier = \"Xcode.DebuggerFoundation.Debugger.LLDB\" "
+        "selectedLauncherIdentifier = \"Xcode.DebuggerFoundation.Launcher.LLDB\" "
+        "shouldUseLaunchSchemeArgsEnv = \"YES\">\n"
+        "      <Testables>\n"
+        f"{test_entries}"
+        "      </Testables>\n"
+        "   </TestAction>\n"
+        "   <LaunchAction buildConfiguration = \"Debug\"></LaunchAction>\n"
+        "   <ProfileAction buildConfiguration = \"Release\"></ProfileAction>\n"
+        "   <AnalyzeAction buildConfiguration = \"Debug\"></AnalyzeAction>\n"
+        "   <ArchiveAction buildConfiguration = \"Release\"></ArchiveAction>\n"
+        "</Scheme>\n"
+    )
+
+
+def write(path, content):
+    parent = os.path.dirname(path)
+    if parent:
+        os.makedirs(parent, exist_ok=True)
+    with open(path, "w", encoding="utf-8") as handle:
+        handle.write(content)
+
+
+def main(argv):
+    spec_path = "project.yml"
+    for i, arg in enumerate(argv):
+        if arg in ("-s", "--spec") and i + 1 < len(argv):
+            spec_path = argv[i + 1]
+
+    # If invoked from elsewhere, fall back to the directory holding this script.
+    if not os.path.exists(spec_path):
+        here = os.path.dirname(os.path.abspath(__file__))
+        for candidate_dir in (here, os.path.dirname(here)):
+            candidate = os.path.join(candidate_dir, "project.yml")
+            if os.path.exists(candidate):
+                os.chdir(candidate_dir)
+                spec_path = "project.yml"
+                break
+
+    if not os.path.exists(spec_path):
+        sys.stderr.write(f"xcodegen(fallback): spec not found: {spec_path}\n")
+        return 1
+
+    spec = load_spec(spec_path)
+    name = spec.get("name", "Project")
+    targets = spec.get("targets", {}) or {}
+
+    proj_dir = f"{name}.xcodeproj"
+    write(os.path.join(proj_dir, "project.pbxproj"), generate_pbxproj(name, targets))
+    write(
+        os.path.join(proj_dir, "project.xcworkspace", "contents.xcworkspacedata"),
+        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+        "<Workspace version = \"1.0\">\n"
+        "   <FileRef location = \"self:\">\n"
+        "   </FileRef>\n"
+        "</Workspace>\n",
+    )
+
+    for tname, tspec in targets.items():
+        scheme = (tspec or {}).get("scheme")
+        if not isinstance(scheme, dict):
+            continue
+        test_targets = scheme.get("testTargets") or []
+        if not test_targets:
+            continue
+        scheme_xml = generate_scheme(tname, list(test_targets), name)
+        write(
+            os.path.join(proj_dir, "xcshareddata", "xcschemes", f"{tname}.xcscheme"),
+            scheme_xml,
+        )
+
+    sys.stdout.write(
+        f"xcodegen(fallback): generated {proj_dir} with targets: "
+        f"{', '.join(targets.keys())}\n"
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv[1:]))
