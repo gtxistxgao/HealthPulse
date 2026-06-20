@@ -1,0 +1,70 @@
+name: CI
+
+# Build the HealthPulse iOS app and run its unit tests on a macOS runner.
+# Pull requests are gated on this workflow finishing green.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Cancel superseded runs on the same ref to save runner minutes.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: Build & Test (iOS Simulator)
+    runs-on: macos-14
+
+    env:
+      SCHEME: HealthPulse
+      TEST_TARGET: HealthPulseTests
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        run: xcodegen generate
+
+      - name: Select iOS Simulator destination
+        id: simulator
+        run: |
+          # Pick the newest available iPhone simulator so the workflow keeps
+          # working as GitHub rotates runner images and bundled simulators.
+          DEVICE=$(xcrun simctl list devices available \
+            | grep -E 'iPhone' \
+            | tail -n 1 \
+            | sed -E 's/^[[:space:]]+//; s/ \(.*//')
+          if [ -z "$DEVICE" ]; then
+            echo "No available iPhone simulator found" >&2
+            xcrun simctl list devices available >&2
+            exit 1
+          fi
+          echo "Using simulator: $DEVICE"
+          echo "destination=platform=iOS Simulator,name=$DEVICE,OS=latest" >> "$GITHUB_OUTPUT"
+
+      - name: Build for testing
+        run: |
+          xcodebuild build-for-testing \
+            -project HealthPulse.xcodeproj \
+            -scheme "$SCHEME" \
+            -destination "${{ steps.simulator.outputs.destination }}" \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Run tests
+        run: |
+          xcodebuild test-without-building \
+            -project HealthPulse.xcodeproj \
+            -scheme "$SCHEME" \
+            -only-testing:"$TEST_TARGET" \
+            -destination "${{ steps.simulator.outputs.destination }}" \
+            CODE_SIGNING_ALLOWED=NO
