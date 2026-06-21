@@ -16,7 +16,7 @@ struct HealthPulseApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            DashboardView()
                 .environmentObject(healthKitManager)
                 .environmentObject(dashboardViewModel)
         }
