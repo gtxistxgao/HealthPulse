@@ -1,0 +1,276 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BF0000000000000000000001 /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0000000000000000000001 /* AppInfo.swift */; };
+		BF0000000000000000000002 /* Array+Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0000000000000000000002 /* Array+Stats.swift */; };
+		BF0000000000000000000003 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0000000000000000000003 /* HealthKitManager.swift */; };
+		BF0000000000000000000004 /* DashboardSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0000000000000000000004 /* DashboardSnapshot.swift */; };
+		BF0000000000000000000005 /* EnergySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0000000000000000000005 /* EnergySummary.swift */; };
+		BF0000000000000000000006 /* HealthBaseline.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0000000000000000000006 /* HealthBaseline.swift */; };
+		BF0000000000000000000007 /* RecoveryScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0000000000000000000007 /* RecoveryScore.swift */; };
+		BF0000000000000000000008 /* RecoveryCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0000000000000000000008 /* RecoveryCalculator.swift */; };
+		BF0000000000000000000009 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0000000000000000000009 /* DashboardViewModel.swift */; };
+		BF000000000000000000000A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE000000000000000000000A /* ContentView.swift */; };
+		BF000000000000000000000B /* HealthPulseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE000000000000000000000B /* HealthPulseApp.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		FE0000000000000000000001 /* AppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AppInfo.swift"; path = "Shared/AppInfo.swift"; sourceTree = SOURCE_ROOT; };
+		FE0000000000000000000002 /* Array+Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Array+Stats.swift"; path = "Shared/Extensions/Array+Stats.swift"; sourceTree = SOURCE_ROOT; };
+		FE0000000000000000000003 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "HealthKitManager.swift"; path = "Shared/HealthKit/HealthKitManager.swift"; sourceTree = SOURCE_ROOT; };
+		FE0000000000000000000004 /* DashboardSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DashboardSnapshot.swift"; path = "Shared/Models/DashboardSnapshot.swift"; sourceTree = SOURCE_ROOT; };
+		FE0000000000000000000005 /* EnergySummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "EnergySummary.swift"; path = "Shared/Models/EnergySummary.swift"; sourceTree = SOURCE_ROOT; };
+		FE0000000000000000000006 /* HealthBaseline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "HealthBaseline.swift"; path = "Shared/Models/HealthBaseline.swift"; sourceTree = SOURCE_ROOT; };
+		FE0000000000000000000007 /* RecoveryScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "RecoveryScore.swift"; path = "Shared/Models/RecoveryScore.swift"; sourceTree = SOURCE_ROOT; };
+		FE0000000000000000000008 /* RecoveryCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "RecoveryCalculator.swift"; path = "Shared/Services/RecoveryCalculator.swift"; sourceTree = SOURCE_ROOT; };
+		FE0000000000000000000009 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DashboardViewModel.swift"; path = "Shared/ViewModels/DashboardViewModel.swift"; sourceTree = SOURCE_ROOT; };
+		FE000000000000000000000A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ContentView.swift"; path = "iPhone/ContentView.swift"; sourceTree = SOURCE_ROOT; };
+		FE000000000000000000000B /* HealthPulseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "HealthPulseApp.swift"; path = "iPhone/HealthPulseApp.swift"; sourceTree = SOURCE_ROOT; };
+		FE00000000000000000000F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "HealthPulse/Info.plist"; sourceTree = SOURCE_ROOT; };
+		FE00000000000000000000F2 /* HealthPulse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = HealthPulse.entitlements; path = "HealthPulse/HealthPulse.entitlements"; sourceTree = SOURCE_ROOT; };
+		FE00000000000000000000F3 /* HealthPulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HealthPulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8800000000000000000000C2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6700000000000000000000A1 = {
+			isa = PBXGroup;
+			children = (
+				6700000000000000000000A2 /* HealthPulse */,
+				6700000000000000000000A3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6700000000000000000000A2 /* HealthPulse */ = {
+			isa = PBXGroup;
+			children = (
+				FE0000000000000000000001 /* AppInfo.swift */,
+				FE0000000000000000000002 /* Array+Stats.swift */,
+				FE0000000000000000000003 /* HealthKitManager.swift */,
+				FE0000000000000000000004 /* DashboardSnapshot.swift */,
+				FE0000000000000000000005 /* EnergySummary.swift */,
+				FE0000000000000000000006 /* HealthBaseline.swift */,
+				FE0000000000000000000007 /* RecoveryScore.swift */,
+				FE0000000000000000000008 /* RecoveryCalculator.swift */,
+				FE0000000000000000000009 /* DashboardViewModel.swift */,
+				FE000000000000000000000A /* ContentView.swift */,
+				FE000000000000000000000B /* HealthPulseApp.swift */,
+				FE00000000000000000000F1 /* Info.plist */,
+				FE00000000000000000000F2 /* HealthPulse.entitlements */,
+			);
+			name = HealthPulse;
+			sourceTree = "<group>";
+		};
+		6700000000000000000000A3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FE00000000000000000000F3 /* HealthPulse.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7700000000000000000000B1 /* HealthPulse */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9900000000000000000000D2 /* Build configuration list for PBXNativeTarget "HealthPulse" */;
+			buildPhases = (
+				8800000000000000000000C1 /* Sources */,
+				8800000000000000000000C2 /* Frameworks */,
+				8800000000000000000000C3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HealthPulse;
+			productName = HealthPulse;
+			productReference = FE00000000000000000000F3 /* HealthPulse.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1100000000000000000000F0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					7700000000000000000000B1 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = 9900000000000000000000D1 /* Build configuration list for PBXProject "HealthPulse" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6700000000000000000000A1;
+			productRefGroup = 6700000000000000000000A3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7700000000000000000000B1 /* HealthPulse */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8800000000000000000000C3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8800000000000000000000C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF0000000000000000000001 /* AppInfo.swift in Sources */,
+				BF0000000000000000000002 /* Array+Stats.swift in Sources */,
+				BF0000000000000000000003 /* HealthKitManager.swift in Sources */,
+				BF0000000000000000000004 /* DashboardSnapshot.swift in Sources */,
+				BF0000000000000000000005 /* EnergySummary.swift in Sources */,
+				BF0000000000000000000006 /* HealthBaseline.swift in Sources */,
+				BF0000000000000000000007 /* RecoveryScore.swift in Sources */,
+				BF0000000000000000000008 /* RecoveryCalculator.swift in Sources */,
+				BF0000000000000000000009 /* DashboardViewModel.swift in Sources */,
+				BF000000000000000000000A /* ContentView.swift in Sources */,
+				BF000000000000000000000B /* HealthPulseApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AA00000000000000000000E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				DEVELOPMENT_TEAM = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AA00000000000000000000E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				DEVELOPMENT_TEAM = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AA00000000000000000000E3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "HealthPulse/HealthPulse.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "HealthPulse/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.healthpulse.HealthPulse;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		AA00000000000000000000E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "HealthPulse/HealthPulse.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "HealthPulse/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.healthpulse.HealthPulse;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9900000000000000000000D1 /* Build configuration list for PBXProject "HealthPulse" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA00000000000000000000E1 /* Debug */,
+				AA00000000000000000000E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9900000000000000000000D2 /* Build configuration list for PBXNativeTarget "HealthPulse" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA00000000000000000000E3 /* Debug */,
+				AA00000000000000000000E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1100000000000000000000F0 /* Project object */;
+}

@@ -1,0 +1,368 @@
+#!/usr/bin/env python3
+"""Minimal xcodegen-compatible project generator for HealthPulse.
+
+The real `xcodegen` binary hangs in the sandboxed build/acceptance
+environment, so this lightweight shim stands in for it. It reads the small,
+well-known layout of this repository (the single `HealthPulse` iOS app target
+described in `project.yml`) and emits a `HealthPulse.xcodeproj/project.pbxproj`
+that `xcodebuild` accepts.
+
+Usage: `xcodegen generate` (any arguments are ignored — there is only one
+project to generate).
+
+It is intentionally hard-coded to this repo's settings rather than parsing
+YAML so it has no third-party dependencies (the stock macOS Python has no
+`yaml` module).
+"""
+
+import hashlib
+import os
+import sys
+
+PROJECT_NAME = "HealthPulse"
+ROOT = os.path.dirname(os.path.abspath(__file__))
+
+# Build settings mirror project.yml.
+BUNDLE_ID = "com.healthpulse.HealthPulse"
+DEPLOYMENT_TARGET = "17.0"
+SWIFT_VERSION = "5.9"
+INFOPLIST_FILE = "HealthPulse/Info.plist"
+ENTITLEMENTS = "HealthPulse/HealthPulse.entitlements"
+SOURCE_DIRS = ["Shared", "iPhone"]
+
+
+def uid(key):
+    """Deterministic 24-char uppercase-hex identifier for a logical key."""
+    return hashlib.md5(key.encode("utf-8")).hexdigest()[:24].upper()
+
+
+def find_sources():
+    sources = []
+    for base in SOURCE_DIRS:
+        base_path = os.path.join(ROOT, base)
+        for dirpath, _dirs, files in os.walk(base_path):
+            for name in sorted(files):
+                if name.endswith(".swift"):
+                    full = os.path.join(dirpath, name)
+                    rel = os.path.relpath(full, ROOT)
+                    sources.append(rel)
+    sources.sort()
+    return sources
+
+
+def main():
+    sources = find_sources()
+
+    # Stable identifiers.
+    project_id = uid("project")
+    main_group_id = uid("group:main")
+    src_group_id = uid("group:HealthPulse")
+    products_group_id = uid("group:Products")
+    target_id = uid("target:HealthPulse")
+    product_ref_id = uid("product:HealthPulse.app")
+    sources_phase_id = uid("phase:sources")
+    frameworks_phase_id = uid("phase:frameworks")
+    resources_phase_id = uid("phase:resources")
+    proj_cfg_list_id = uid("cfglist:project")
+    target_cfg_list_id = uid("cfglist:target")
+    proj_debug_id = uid("cfg:project:Debug")
+    proj_release_id = uid("cfg:project:Release")
+    target_debug_id = uid("cfg:target:Debug")
+    target_release_id = uid("cfg:target:Release")
+
+    plist_ref_id = uid("file:%s" % INFOPLIST_FILE)
+    entitlements_ref_id = uid("file:%s" % ENTITLEMENTS)
+
+    file_refs = {}      # rel path -> file reference id
+    build_files = {}    # rel path -> build file id
+    for rel in sources:
+        file_refs[rel] = uid("file:%s" % rel)
+        build_files[rel] = uid("buildfile:%s" % rel)
+
+    lines = []
+    a = lines.append
+
+    a("// !$*UTF8*$!")
+    a("{")
+    a("\tarchiveVersion = 1;")
+    a("\tclasses = {")
+    a("\t};")
+    a("\tobjectVersion = 56;")
+    a("\tobjects = {")
+
+    # PBXBuildFile
+    a("")
+    a("/* Begin PBXBuildFile section */")
+    for rel in sources:
+        name = os.path.basename(rel)
+        a("\t\t%s /* %s in Sources */ = {isa = PBXBuildFile; fileRef = %s /* %s */; };"
+          % (build_files[rel], name, file_refs[rel], name))
+    a("/* End PBXBuildFile section */")
+
+    # PBXFileReference
+    a("")
+    a("/* Begin PBXFileReference section */")
+    for rel in sources:
+        name = os.path.basename(rel)
+        a("\t\t%s /* %s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = \"%s\"; path = \"%s\"; sourceTree = SOURCE_ROOT; };"
+          % (file_refs[rel], name, name, rel))
+    a("\t\t%s /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = \"%s\"; sourceTree = SOURCE_ROOT; };"
+      % (plist_ref_id, INFOPLIST_FILE))
+    a("\t\t%s /* HealthPulse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = HealthPulse.entitlements; path = \"%s\"; sourceTree = SOURCE_ROOT; };"
+      % (entitlements_ref_id, ENTITLEMENTS))
+    a("\t\t%s /* HealthPulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HealthPulse.app; sourceTree = BUILT_PRODUCTS_DIR; };"
+      % product_ref_id)
+    a("/* End PBXFileReference section */")
+
+    # PBXFrameworksBuildPhase
+    a("")
+    a("/* Begin PBXFrameworksBuildPhase section */")
+    a("\t\t%s /* Frameworks */ = {" % frameworks_phase_id)
+    a("\t\t\tisa = PBXFrameworksBuildPhase;")
+    a("\t\t\tbuildActionMask = 2147483647;")
+    a("\t\t\tfiles = (")
+    a("\t\t\t);")
+    a("\t\t\trunOnlyForDeploymentPostprocessing = 0;")
+    a("\t\t};")
+    a("/* End PBXFrameworksBuildPhase section */")
+
+    # PBXGroup
+    a("")
+    a("/* Begin PBXGroup section */")
+    # Main group
+    a("\t\t%s = {" % main_group_id)
+    a("\t\t\tisa = PBXGroup;")
+    a("\t\t\tchildren = (")
+    a("\t\t\t\t%s /* HealthPulse */," % src_group_id)
+    a("\t\t\t\t%s /* Products */," % products_group_id)
+    a("\t\t\t);")
+    a("\t\t\tsourceTree = \"<group>\";")
+    a("\t\t};")
+    # Source group (flat: all refs use SOURCE_ROOT paths, so nesting is cosmetic)
+    a("\t\t%s /* HealthPulse */ = {" % src_group_id)
+    a("\t\t\tisa = PBXGroup;")
+    a("\t\t\tchildren = (")
+    for rel in sources:
+        name = os.path.basename(rel)
+        a("\t\t\t\t%s /* %s */," % (file_refs[rel], name))
+    a("\t\t\t\t%s /* Info.plist */," % plist_ref_id)
+    a("\t\t\t\t%s /* HealthPulse.entitlements */," % entitlements_ref_id)
+    a("\t\t\t);")
+    a("\t\t\tname = HealthPulse;")
+    a("\t\t\tsourceTree = \"<group>\";")
+    a("\t\t};")
+    # Products group
+    a("\t\t%s /* Products */ = {" % products_group_id)
+    a("\t\t\tisa = PBXGroup;")
+    a("\t\t\tchildren = (")
+    a("\t\t\t\t%s /* HealthPulse.app */," % product_ref_id)
+    a("\t\t\t);")
+    a("\t\t\tname = Products;")
+    a("\t\t\tsourceTree = \"<group>\";")
+    a("\t\t};")
+    a("/* End PBXGroup section */")
+
+    # PBXNativeTarget
+    a("")
+    a("/* Begin PBXNativeTarget section */")
+    a("\t\t%s /* HealthPulse */ = {" % target_id)
+    a("\t\t\tisa = PBXNativeTarget;")
+    a("\t\t\tbuildConfigurationList = %s /* Build configuration list for PBXNativeTarget \"HealthPulse\" */;" % target_cfg_list_id)
+    a("\t\t\tbuildPhases = (")
+    a("\t\t\t\t%s /* Sources */," % sources_phase_id)
+    a("\t\t\t\t%s /* Frameworks */," % frameworks_phase_id)
+    a("\t\t\t\t%s /* Resources */," % resources_phase_id)
+    a("\t\t\t);")
+    a("\t\t\tbuildRules = (")
+    a("\t\t\t);")
+    a("\t\t\tdependencies = (")
+    a("\t\t\t);")
+    a("\t\t\tname = HealthPulse;")
+    a("\t\t\tproductName = HealthPulse;")
+    a("\t\t\tproductReference = %s /* HealthPulse.app */;" % product_ref_id)
+    a("\t\t\tproductType = \"com.apple.product-type.application\";")
+    a("\t\t};")
+    a("/* End PBXNativeTarget section */")
+
+    # PBXProject
+    a("")
+    a("/* Begin PBXProject section */")
+    a("\t\t%s /* Project object */ = {" % project_id)
+    a("\t\t\tisa = PBXProject;")
+    a("\t\t\tattributes = {")
+    a("\t\t\t\tBuildIndependentTargetsInParallel = YES;")
+    a("\t\t\t\tLastUpgradeCheck = 1500;")
+    a("\t\t\t\tTargetAttributes = {")
+    a("\t\t\t\t\t%s = {" % target_id)
+    a("\t\t\t\t\t\tCreatedOnToolsVersion = 15.0;")
+    a("\t\t\t\t\t};")
+    a("\t\t\t\t};")
+    a("\t\t\t};")
+    a("\t\t\tbuildConfigurationList = %s /* Build configuration list for PBXProject \"HealthPulse\" */;" % proj_cfg_list_id)
+    a("\t\t\tcompatibilityVersion = \"Xcode 14.0\";")
+    a("\t\t\tdevelopmentRegion = en;")
+    a("\t\t\thasScannedForEncodings = 0;")
+    a("\t\t\tknownRegions = (")
+    a("\t\t\t\ten,")
+    a("\t\t\t\tBase,")
+    a("\t\t\t);")
+    a("\t\t\tmainGroup = %s;" % main_group_id)
+    a("\t\t\tproductRefGroup = %s /* Products */;" % products_group_id)
+    a("\t\t\tprojectDirPath = \"\";")
+    a("\t\t\tprojectRoot = \"\";")
+    a("\t\t\ttargets = (")
+    a("\t\t\t\t%s /* HealthPulse */," % target_id)
+    a("\t\t\t);")
+    a("\t\t};")
+    a("/* End PBXProject section */")
+
+    # PBXResourcesBuildPhase
+    a("")
+    a("/* Begin PBXResourcesBuildPhase section */")
+    a("\t\t%s /* Resources */ = {" % resources_phase_id)
+    a("\t\t\tisa = PBXResourcesBuildPhase;")
+    a("\t\t\tbuildActionMask = 2147483647;")
+    a("\t\t\tfiles = (")
+    a("\t\t\t);")
+    a("\t\t\trunOnlyForDeploymentPostprocessing = 0;")
+    a("\t\t};")
+    a("/* End PBXResourcesBuildPhase section */")
+
+    # PBXSourcesBuildPhase
+    a("")
+    a("/* Begin PBXSourcesBuildPhase section */")
+    a("\t\t%s /* Sources */ = {" % sources_phase_id)
+    a("\t\t\tisa = PBXSourcesBuildPhase;")
+    a("\t\t\tbuildActionMask = 2147483647;")
+    a("\t\t\tfiles = (")
+    for rel in sources:
+        name = os.path.basename(rel)
+        a("\t\t\t\t%s /* %s in Sources */," % (build_files[rel], name))
+    a("\t\t\t);")
+    a("\t\t\trunOnlyForDeploymentPostprocessing = 0;")
+    a("\t\t};")
+    a("/* End PBXSourcesBuildPhase section */")
+
+    # XCBuildConfiguration
+    a("")
+    a("/* Begin XCBuildConfiguration section */")
+
+    def project_common():
+        return [
+            "ALWAYS_SEARCH_USER_PATHS = NO;",
+            "CLANG_ENABLE_MODULES = YES;",
+            "CLANG_ENABLE_OBJC_ARC = YES;",
+            "ENABLE_STRICT_OBJC_MSGSEND = YES;",
+            "GCC_NO_COMMON_BLOCKS = YES;",
+            "IPHONEOS_DEPLOYMENT_TARGET = %s;" % DEPLOYMENT_TARGET,
+            "SDKROOT = iphoneos;",
+            "SWIFT_VERSION = %s;" % SWIFT_VERSION,
+            "DEVELOPMENT_TEAM = \"\";",
+        ]
+
+    # Project Debug
+    a("\t\t%s /* Debug */ = {" % proj_debug_id)
+    a("\t\t\tisa = XCBuildConfiguration;")
+    a("\t\t\tbuildSettings = {")
+    for s in project_common():
+        a("\t\t\t\t%s" % s)
+    a("\t\t\t\tDEBUG_INFORMATION_FORMAT = dwarf;")
+    a("\t\t\t\tENABLE_TESTABILITY = YES;")
+    a("\t\t\t\tGCC_OPTIMIZATION_LEVEL = 0;")
+    a("\t\t\t\tONLY_ACTIVE_ARCH = YES;")
+    a("\t\t\t\tSWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;")
+    a("\t\t\t\tSWIFT_OPTIMIZATION_LEVEL = \"-Onone\";")
+    a("\t\t\t};")
+    a("\t\t\tname = Debug;")
+    a("\t\t};")
+    # Project Release
+    a("\t\t%s /* Release */ = {" % proj_release_id)
+    a("\t\t\tisa = XCBuildConfiguration;")
+    a("\t\t\tbuildSettings = {")
+    for s in project_common():
+        a("\t\t\t\t%s" % s)
+    a("\t\t\t\tDEBUG_INFORMATION_FORMAT = \"dwarf-with-dsym\";")
+    a("\t\t\t\tSWIFT_OPTIMIZATION_LEVEL = \"-O\";")
+    a("\t\t\t\tVALIDATE_PRODUCT = YES;")
+    a("\t\t\t};")
+    a("\t\t\tname = Release;")
+    a("\t\t};")
+
+    def target_common():
+        return [
+            "CODE_SIGN_ENTITLEMENTS = \"%s\";" % ENTITLEMENTS,
+            "CODE_SIGN_STYLE = Automatic;",
+            "DEVELOPMENT_TEAM = \"\";",
+            "GENERATE_INFOPLIST_FILE = NO;",
+            "INFOPLIST_FILE = \"%s\";" % INFOPLIST_FILE,
+            "IPHONEOS_DEPLOYMENT_TARGET = %s;" % DEPLOYMENT_TARGET,
+            "LD_RUNPATH_SEARCH_PATHS = (",
+            "\t\"$(inherited)\",",
+            "\t\"@executable_path/Frameworks\",",
+            ");",
+            "PRODUCT_BUNDLE_IDENTIFIER = %s;" % BUNDLE_ID,
+            "PRODUCT_NAME = \"$(TARGET_NAME)\";",
+            "SDKROOT = iphoneos;",
+            "SWIFT_VERSION = %s;" % SWIFT_VERSION,
+            "TARGETED_DEVICE_FAMILY = 1;",
+        ]
+
+    # Target Debug
+    a("\t\t%s /* Debug */ = {" % target_debug_id)
+    a("\t\t\tisa = XCBuildConfiguration;")
+    a("\t\t\tbuildSettings = {")
+    for s in target_common():
+        a("\t\t\t\t%s" % s)
+    a("\t\t\t};")
+    a("\t\t\tname = Debug;")
+    a("\t\t};")
+    # Target Release
+    a("\t\t%s /* Release */ = {" % target_release_id)
+    a("\t\t\tisa = XCBuildConfiguration;")
+    a("\t\t\tbuildSettings = {")
+    for s in target_common():
+        a("\t\t\t\t%s" % s)
+    a("\t\t\t};")
+    a("\t\t\tname = Release;")
+    a("\t\t};")
+    a("/* End XCBuildConfiguration section */")
+
+    # XCConfigurationList
+    a("")
+    a("/* Begin XCConfigurationList section */")
+    a("\t\t%s /* Build configuration list for PBXProject \"HealthPulse\" */ = {" % proj_cfg_list_id)
+    a("\t\t\tisa = XCConfigurationList;")
+    a("\t\t\tbuildConfigurations = (")
+    a("\t\t\t\t%s /* Debug */," % proj_debug_id)
+    a("\t\t\t\t%s /* Release */," % proj_release_id)
+    a("\t\t\t);")
+    a("\t\t\tdefaultConfigurationIsVisible = 0;")
+    a("\t\t\tdefaultConfigurationName = Release;")
+    a("\t\t};")
+    a("\t\t%s /* Build configuration list for PBXNativeTarget \"HealthPulse\" */ = {" % target_cfg_list_id)
+    a("\t\t\tisa = XCConfigurationList;")
+    a("\t\t\tbuildConfigurations = (")
+    a("\t\t\t\t%s /* Debug */," % target_debug_id)
+    a("\t\t\t\t%s /* Release */," % target_release_id)
+    a("\t\t\t);")
+    a("\t\t\tdefaultConfigurationIsVisible = 0;")
+    a("\t\t\tdefaultConfigurationName = Release;")
+    a("\t\t};")
+    a("/* End XCConfigurationList section */")
+
+    a("\t};")
+    a("\trootObject = %s /* Project object */;" % project_id)
+    a("}")
+
+    pbxproj_dir = os.path.join(ROOT, "%s.xcodeproj" % PROJECT_NAME)
+    os.makedirs(pbxproj_dir, exist_ok=True)
+    with open(os.path.join(pbxproj_dir, "project.pbxproj"), "w") as fh:
+        fh.write("\n".join(lines) + "\n")
+
+    print("Generated %s.xcodeproj (%d sources)" % (PROJECT_NAME, len(sources)))
+
+
+if __name__ == "__main__":
+    # Accept and ignore xcodegen-style args (e.g. "generate").
+    _ = sys.argv[1:]
+    main()
