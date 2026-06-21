@@ -1,2 +1,0 @@
-# HealthPulse
-Health Tracking App
