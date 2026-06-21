@@ -23,7 +23,7 @@
 /* Begin PBXFileReference section */
 		FE0000000000000000000001 /* AppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AppInfo.swift"; path = "Shared/AppInfo.swift"; sourceTree = SOURCE_ROOT; };
 		FE0000000000000000000002 /* Array+Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Array+Stats.swift"; path = "Shared/Extensions/Array+Stats.swift"; sourceTree = SOURCE_ROOT; };
-		FE0000000000000000000003 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "HealthKitManager.swift"; path = "Shared/HealthKit/HealthKitManager.swift"; sourceTree = SOURCE_ROOT; };
+		FE0000000000000000000003 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "HealthKitManager.swift"; path = "Shared/Services/HealthKitManager.swift"; sourceTree = SOURCE_ROOT; };
 		FE0000000000000000000004 /* DashboardSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DashboardSnapshot.swift"; path = "Shared/Models/DashboardSnapshot.swift"; sourceTree = SOURCE_ROOT; };
 		FE0000000000000000000005 /* EnergySummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "EnergySummary.swift"; path = "Shared/Models/EnergySummary.swift"; sourceTree = SOURCE_ROOT; };
 		FE0000000000000000000006 /* HealthBaseline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "HealthBaseline.swift"; path = "Shared/Models/HealthBaseline.swift"; sourceTree = SOURCE_ROOT; };
