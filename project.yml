@@ -1,0 +1,36 @@
+name: HealthPulse
+
+options:
+  bundleIdPrefix: com.healthpulse
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+  developmentLanguage: en
+
+# Project-wide build settings. DEVELOPMENT_TEAM is intentionally left empty so
+# the developer can set the signing team in Xcode (Signing & Capabilities).
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    DEVELOPMENT_TEAM: ""
+
+targets:
+  HealthPulse:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: Shared
+      - path: iPhone
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.healthpulse.HealthPulse
+        PRODUCT_NAME: HealthPulse
+        SWIFT_VERSION: "5.9"
+        # Left empty on purpose — configure in Xcode before signing.
+        DEVELOPMENT_TEAM: ""
+        TARGETED_DEVICE_FAMILY: "1"
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: HealthPulse/Info.plist
+        CODE_SIGN_ENTITLEMENTS: HealthPulse/HealthPulse.entitlements
+        CODE_SIGN_STYLE: Automatic
