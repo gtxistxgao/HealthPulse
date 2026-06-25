@@ -43,7 +43,7 @@ final class DashboardViewModel: ObservableObject {
         await healthKit.requestAuthorization()
 
         guard healthKit.isAuthorized else {
-            errorMessage = String(localized: "healthkit.auth.denied")
+            errorMessage = L("healthkit.auth.denied")
             return
         }
 
