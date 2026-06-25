@@ -21,6 +21,7 @@
 		BF000000000000000000000C /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE000000000000000000000C /* CircularProgressView.swift */; };
 		BF000000000000000000000D /* MetricCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE000000000000000000000D /* MetricCard.swift */; };
 		BF000000000000000000000E /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE000000000000000000000E /* DashboardView.swift */; };
+		BF000000000000000000000F /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE000000000000000000000F /* LocalizationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		FE000000000000000000000C /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CircularProgressView.swift"; path = "iPhone/Views/Components/CircularProgressView.swift"; sourceTree = SOURCE_ROOT; };
 		FE000000000000000000000D /* MetricCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MetricCard.swift"; path = "iPhone/Views/Components/MetricCard.swift"; sourceTree = SOURCE_ROOT; };
 		FE000000000000000000000E /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DashboardView.swift"; path = "iPhone/Views/Dashboard/DashboardView.swift"; sourceTree = SOURCE_ROOT; };
+		FE000000000000000000000F /* LocalizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "LocalizationManager.swift"; path = "Shared/Services/LocalizationManager.swift"; sourceTree = SOURCE_ROOT; };
 		FE00000000000000000000F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "HealthPulse/Info.plist"; sourceTree = SOURCE_ROOT; };
 		FE00000000000000000000F2 /* HealthPulse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = HealthPulse.entitlements; path = "HealthPulse/HealthPulse.entitlements"; sourceTree = SOURCE_ROOT; };
 		FE00000000000000000000F3 /* HealthPulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HealthPulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +81,7 @@
 				FE000000000000000000000C /* CircularProgressView.swift */,
 				FE000000000000000000000D /* MetricCard.swift */,
 				FE000000000000000000000E /* DashboardView.swift */,
+				FE000000000000000000000F /* LocalizationManager.swift */,
 				FE00000000000000000000F1 /* Info.plist */,
 				FE00000000000000000000F2 /* HealthPulse.entitlements */,
 			);
@@ -174,6 +177,7 @@
 				BF000000000000000000000C /* CircularProgressView.swift in Sources */,
 				BF000000000000000000000D /* MetricCard.swift in Sources */,
 				BF000000000000000000000E /* DashboardView.swift in Sources */,
+				BF000000000000000000000F /* LocalizationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
