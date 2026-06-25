@@ -51,6 +51,16 @@ final class LocalizationManager: ObservableObject {
     /// `UserDefaults` key under which the raw selection is persisted.
     private static let storageKey = "HealthPulse.selectedLanguage"
 
+    /// The most recently initialized manager, used to back the global ``L(_:_:)``
+    /// function and ``Swift/String/localized(_:)`` helper for code that cannot
+    /// observe the object directly (view models, formatters, free functions).
+    ///
+    /// Held weakly so preview/test instances don't outlive their scope; the
+    /// app's `@StateObject` keeps the live instance alive. SwiftUI views should
+    /// prefer the instance API (e.g. via `@EnvironmentObject`) so they re-render
+    /// when the language changes — the global helpers do not trigger redraws.
+    private(set) static weak var current: LocalizationManager?
+
     /// The resolved language code currently in effect (always a concrete,
     /// supported code — never ``systemSelection``).
     ///
@@ -70,6 +80,7 @@ final class LocalizationManager: ObservableObject {
         let stored = defaults.string(forKey: Self.storageKey) ?? Self.systemSelection
         self.selection = stored
         self.languageCode = Self.resolve(selection: stored)
+        Self.current = self
     }
 
     // MARK: - Derived resources
@@ -101,9 +112,40 @@ final class LocalizationManager: ObservableObject {
     /// Looks up a localized string in the selected language's ``bundle``.
     ///
     /// A small convenience over `NSLocalizedString` that routes through the
-    /// chosen bundle rather than the system-selected one.
+    /// chosen bundle rather than the system-selected one, so lookups follow the
+    /// in-app language selection and stay decoupled from the device language.
+    ///
+    /// - Parameter comment: ignored at runtime; present so call sites read like
+    ///   `NSLocalizedString` and remain discoverable by string-extraction tools.
     func localizedString(_ key: String, comment: String = "") -> String {
         bundle.localizedString(forKey: key, value: nil, table: nil)
+    }
+
+    /// Looks up a localized *format* string and substitutes `arguments`,
+    /// formatting them with the selected language's ``locale`` (so numbers,
+    /// plurals and the like respect the chosen language rather than the device).
+    ///
+    /// The value stored for `key` is treated as a `String(format:)` template,
+    /// e.g. `"%d steps"` / `"%1$@ 的 %2$@"`.
+    ///
+    /// - Parameters:
+    ///   - key: the lookup key whose value is a format template.
+    ///   - arguments: the substitution arguments; an empty array returns the
+    ///     template unchanged (and avoids treating stray `%` as a specifier).
+    func localizedString(_ key: String, arguments: [CVarArg]) -> String {
+        let template = bundle.localizedString(forKey: key, value: nil, table: nil)
+        guard !arguments.isEmpty else { return template }
+        return String(format: template, locale: locale, arguments: arguments)
+    }
+
+    /// Ergonomic call syntax for the unified lookup, e.g.
+    /// `localization("dashboard.title")` or
+    /// `localization("steps.count", stepCount)`.
+    ///
+    /// Routes through ``localizedString(_:arguments:)`` so both the plain and
+    /// the parameterized forms share one code path.
+    func callAsFunction(_ key: String, _ arguments: CVarArg...) -> String {
+        localizedString(key, arguments: arguments)
     }
 
     // MARK: - Switching
@@ -193,4 +235,63 @@ final class LocalizationManager: ObservableObject {
 
         return nil
     }
+}
+
+// MARK: - Global lookup entry point
+
+/// The app's single entry point for localized text.
+///
+/// Resolves `key` against the language currently selected in
+/// ``LocalizationManager`` — i.e. the in-app choice, *not* the device's system
+/// language — so runtime language switching and the OS setting stay decoupled.
+/// Optional `arguments` are substituted into the looked-up format template using
+/// the selected language's locale.
+///
+/// All UI copy should flow through this function (or its sibling
+/// ``Swift/String/localized(_:)``), keeping every string on the same
+/// bundle-aware path:
+///
+/// ```swift
+/// Text(L("dashboard.title"))
+/// Text(L("steps.count", stepCount))
+/// ```
+///
+/// > Note: this is a plain function read, not an observed value — it does not
+/// > itself cause a SwiftUI view to redraw on a language change. Views should
+/// > observe ``LocalizationManager`` (e.g. through `@EnvironmentObject`) so a
+/// > switch invalidates their body; the lookup inside then returns the new
+/// > language's copy. When no manager has been created yet, falls back to
+/// > `Bundle.main` so lookups still degrade gracefully.
+@MainActor
+func L(_ key: String, _ arguments: CVarArg...) -> String {
+    localizedLookup(key, arguments: arguments)
+}
+
+extension String {
+    /// Treats the string as a localization key and resolves it through the
+    /// unified ``L(_:_:)`` entry point, optionally substituting `arguments`.
+    ///
+    /// ```swift
+    /// Text("dashboard.title".localized())
+    /// Text("steps.count".localized(stepCount))
+    /// ```
+    @MainActor
+    func localized(_ arguments: CVarArg...) -> String {
+        localizedLookup(self, arguments: arguments)
+    }
+}
+
+/// Shared implementation behind ``L(_:_:)`` and ``Swift/String/localized(_:)``.
+///
+/// Prefers the live ``LocalizationManager`` so lookups honour the in-app
+/// selection; if none exists it falls back to `Bundle.main` so text is still
+/// rendered (in the system language) instead of crashing or showing the key.
+@MainActor
+private func localizedLookup(_ key: String, arguments: [CVarArg]) -> String {
+    if let manager = LocalizationManager.current {
+        return manager.localizedString(key, arguments: arguments)
+    }
+    let template = Bundle.main.localizedString(forKey: key, value: nil, table: nil)
+    guard !arguments.isEmpty else { return template }
+    return String(format: template, arguments: arguments)
 }

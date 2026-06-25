@@ -8,6 +8,10 @@ struct HealthPulseApp: App {
     /// Drives the dashboard screen.
     @StateObject private var dashboardViewModel: DashboardViewModel
 
+    /// Owns the in-app language selection and backs the unified localized-text
+    /// entry point (``L(_:_:)`` / ``Swift/String/localized(_:)``).
+    @StateObject private var localizationManager = LocalizationManager()
+
     init() {
         let healthKit = HealthKitManager()
         _healthKitManager = StateObject(wrappedValue: healthKit)
@@ -19,6 +23,7 @@ struct HealthPulseApp: App {
             DashboardView()
                 .environmentObject(healthKitManager)
                 .environmentObject(dashboardViewModel)
+                .environmentObject(localizationManager)
         }
     }
 }
