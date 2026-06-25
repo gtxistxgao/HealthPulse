@@ -12,6 +12,9 @@ import SwiftUI
 struct DashboardView: View {
     @EnvironmentObject private var viewModel: DashboardViewModel
 
+    /// Whether the language-selection sheet is presented.
+    @State private var isShowingSettings = false
+
     var body: some View {
         NavigationStack {
             Group {
@@ -24,6 +27,18 @@ struct DashboardView: View {
                 }
             }
             .navigationTitle("dashboard.nav.today")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        isShowingSettings = true
+                    } label: {
+                        Image(systemName: "gearshape")
+                    }
+                }
+            }
+            .sheet(isPresented: $isShowingSettings) {
+                SettingsView()
+            }
         }
         .task { await viewModel.load() }
     }

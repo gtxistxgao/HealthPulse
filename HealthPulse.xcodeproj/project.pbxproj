@@ -22,7 +22,8 @@
 		BF000000000000000000000D /* MetricCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE000000000000000000000D /* MetricCard.swift */; };
 		BF000000000000000000000E /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE000000000000000000000E /* DashboardView.swift */; };
 		BF000000000000000000000F /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE000000000000000000000F /* LocalizationManager.swift */; };
-		BF0000000000000000000010 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FE0000000000000000000010 /* Localizable.xcstrings */; };
+		BF0000000000000000000010 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0000000000000000000010 /* SettingsView.swift */; };
+		BF0000000000000000000011 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FE0000000000000000000011 /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +42,8 @@
 		FE000000000000000000000D /* MetricCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MetricCard.swift"; path = "iPhone/Views/Components/MetricCard.swift"; sourceTree = SOURCE_ROOT; };
 		FE000000000000000000000E /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DashboardView.swift"; path = "iPhone/Views/Dashboard/DashboardView.swift"; sourceTree = SOURCE_ROOT; };
 		FE000000000000000000000F /* LocalizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "LocalizationManager.swift"; path = "Shared/Services/LocalizationManager.swift"; sourceTree = SOURCE_ROOT; };
-		FE0000000000000000000010 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = Localizable.xcstrings; path = "iPhone/Localizable.xcstrings"; sourceTree = SOURCE_ROOT; };
+		FE0000000000000000000010 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "SettingsView.swift"; path = "iPhone/Views/Settings/SettingsView.swift"; sourceTree = SOURCE_ROOT; };
+		FE0000000000000000000011 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = "Localizable.xcstrings"; path = "iPhone/Localizable.xcstrings"; sourceTree = SOURCE_ROOT; };
 		FE00000000000000000000F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "HealthPulse/Info.plist"; sourceTree = SOURCE_ROOT; };
 		FE00000000000000000000F2 /* HealthPulse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = HealthPulse.entitlements; path = "HealthPulse/HealthPulse.entitlements"; sourceTree = SOURCE_ROOT; };
 		FE00000000000000000000F3 /* HealthPulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HealthPulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,7 +86,8 @@
 				FE000000000000000000000D /* MetricCard.swift */,
 				FE000000000000000000000E /* DashboardView.swift */,
 				FE000000000000000000000F /* LocalizationManager.swift */,
-				FE0000000000000000000010 /* Localizable.xcstrings */,
+				FE0000000000000000000010 /* SettingsView.swift */,
+				FE0000000000000000000011 /* Localizable.xcstrings */,
 				FE00000000000000000000F1 /* Info.plist */,
 				FE00000000000000000000F2 /* HealthPulse.entitlements */,
 			);
@@ -146,6 +149,7 @@
 				ja,
 				ko,
 				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = 6700000000000000000000A1;
 			productRefGroup = 6700000000000000000000A3 /* Products */;
@@ -162,7 +166,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF0000000000000000000010 /* Localizable.xcstrings in Resources */,
+				BF0000000000000000000011 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,6 +192,7 @@
 				BF000000000000000000000D /* MetricCard.swift in Sources */,
 				BF000000000000000000000E /* DashboardView.swift in Sources */,
 				BF000000000000000000000F /* LocalizationManager.swift in Sources */,
+				BF0000000000000000000010 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -39,6 +39,11 @@ final class LocalizationManager: ObservableObject {
     static let supportedLanguages: [SupportedLanguage] = [
         SupportedLanguage(code: "en", nativeName: "English"),
         SupportedLanguage(code: "zh-Hans", nativeName: "简体中文"),
+        SupportedLanguage(code: "zh-Hant", nativeName: "繁體中文"),
+        SupportedLanguage(code: "ja", nativeName: "日本語"),
+        SupportedLanguage(code: "ko", nativeName: "한국어"),
+        SupportedLanguage(code: "es", nativeName: "Español"),
+        SupportedLanguage(code: "fr", nativeName: "Français"),
     ]
 
     /// The stored value meaning "follow the system language".
