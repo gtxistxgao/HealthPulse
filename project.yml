@@ -34,3 +34,7 @@ targets:
         INFOPLIST_FILE: HealthPulse/Info.plist
         CODE_SIGN_ENTITLEMENTS: HealthPulse/HealthPulse.entitlements
         CODE_SIGN_STYLE: Automatic
+        # No signing team is configured (DEVELOPMENT_TEAM is intentionally
+        # empty), so disable signing to allow `xcodebuild ... build` for
+        # device (generic/platform=iOS) to succeed without a team.
+        CODE_SIGNING_ALLOWED: "NO"

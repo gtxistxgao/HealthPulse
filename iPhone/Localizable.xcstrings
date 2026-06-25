@@ -11,7 +11,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "Bientôt disponible" } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "近日公開" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "곧 출시" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "即将上线" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "即将上线" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "即將推出" } }
       }
     },
     "dashboard.card.energy.title" : {
@@ -24,7 +25,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "Énergie" } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "エネルギー" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "에너지" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "能量" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "能量" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "能量" } }
       }
     },
     "dashboard.card.load.title" : {
@@ -37,7 +39,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "Charge" } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "負荷" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "부하" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "消耗负荷" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "消耗负荷" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "消耗負荷" } }
       }
     },
     "dashboard.card.recovery.title" : {
@@ -50,7 +53,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "Récupération" } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "回復" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "회복" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "恢复" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "恢复" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "恢復" } }
       }
     },
     "dashboard.card.sleep.title" : {
@@ -63,7 +67,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "Sommeil" } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "睡眠" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "수면" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "睡眠" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "睡眠" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "睡眠" } }
       }
     },
     "dashboard.energy.breakdown" : {
@@ -76,7 +81,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "Actif %1$lld · Repos %2$lld" } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "運動 %1$lld · 安静時 %2$lld" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "활동 %1$lld · 휴식 %2$lld" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "活动 %1$lld · 静息 %2$lld" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "活动 %1$lld · 静息 %2$lld" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "活動 %1$lld · 靜息 %2$lld" } }
       }
     },
     "dashboard.energy.unit.kcal" : {
@@ -89,7 +95,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "kcal" } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "kcal" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "kcal" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "千卡" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "千卡" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "大卡" } }
       }
     },
     "dashboard.guidance.body" : {
@@ -102,7 +109,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "Une fois l'accès à vos données Santé autorisé, votre aperçu de récupération et d'énergie s'affichera ici." } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "「ヘルスケア」データへのアクセスを許可すると、回復とエネルギーの概要がここに表示されます。" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "건강 데이터 접근을 허용하면 회복 및 에너지 요약이 여기에 표시됩니다." } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "授权访问「健康」数据后,这里会显示你的恢复与能量概览。" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "授权访问「健康」数据后,这里会显示你的恢复与能量概览。" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "授權存取「健康」資料後,這裡會顯示你的恢復與能量總覽。" } }
       }
     },
     "dashboard.guidance.reload" : {
@@ -115,7 +123,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "Recharger" } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "再読み込み" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "다시 불러오기" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "重新加载" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "重新加载" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "重新載入" } }
       }
     },
     "dashboard.guidance.welcome" : {
@@ -128,7 +137,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "Bienvenue dans HealthPulse" } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "HealthPulse へようこそ" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "HealthPulse에 오신 것을 환영합니다" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "欢迎使用 HealthPulse" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "欢迎使用 HealthPulse" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "歡迎使用 HealthPulse" } }
       }
     },
     "dashboard.loading" : {
@@ -141,7 +151,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "Lecture des données de santé…" } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "ヘルスデータを読み込み中…" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "건강 데이터를 읽는 중…" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "正在读取健康数据…" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "正在读取健康数据…" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "正在讀取健康資料…" } }
       }
     },
     "dashboard.metric.hrv.title" : {
@@ -154,7 +165,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "Variabilité de la fréquence cardiaque" } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "心拍変動" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "심박 변이도" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "心率变异性" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "心率变异性" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "心率變異性" } }
       }
     },
     "dashboard.metric.hrv.unit" : {
@@ -167,7 +179,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "ms" } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "ms" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "ms" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "ms" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "ms" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "ms" } }
       }
     },
     "dashboard.metric.noValue" : {
@@ -180,7 +193,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "—" } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "—" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "—" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "—" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "—" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "—" } }
       }
     },
     "dashboard.metric.resp.title" : {
@@ -193,7 +207,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "Fréquence respiratoire" } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "呼吸数" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "호흡수" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "呼吸频率" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "呼吸频率" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "呼吸頻率" } }
       }
     },
     "dashboard.metric.resp.unit" : {
@@ -206,7 +221,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "resp/min" } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "回/分" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "회/분" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "次/分" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "次/分" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "次/分" } }
       }
     },
     "dashboard.metric.rhr.title" : {
@@ -219,7 +235,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "Fréquence cardiaque au repos" } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "安静時心拍数" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "안정 시 심박수" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "静息心率" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "静息心率" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "靜息心率" } }
       }
     },
     "dashboard.metric.rhr.unit" : {
@@ -232,7 +249,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "bpm" } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "bpm" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "bpm" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "次/分" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "次/分" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "次/分" } }
       }
     },
     "dashboard.metric.spo2.title" : {
@@ -245,7 +263,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "Oxygène sanguin" } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "血中酸素" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "혈중 산소" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "血氧" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "血氧" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "血氧" } }
       }
     },
     "dashboard.metric.spo2.unit" : {
@@ -258,7 +277,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "%" } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "%" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "%" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "%" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "%" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "%" } }
       }
     },
     "dashboard.nav.today" : {
@@ -271,7 +291,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "Aujourd'hui" } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "今日" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "오늘" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "今日" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "今日" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "今日" } }
       }
     },
     "dashboard.recovery.collecting" : {
@@ -284,7 +305,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "Collecte des données" } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "データを収集中" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "데이터 수집 중" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "数据积累中" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "数据积累中" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "資料累積中" } }
       }
     },
     "dashboard.section.vitals" : {
@@ -297,7 +319,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "Signes vitaux" } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "バイタル" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "생체 지표" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "生理指标" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "生理指标" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "生理指標" } }
       }
     },
     "healthkit.auth.denied" : {
@@ -310,7 +333,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "Impossible d'accéder aux données de santé. Autorisez HealthPulse dans Réglages › Santé." } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "ヘルスデータにアクセスできません。「設定 › ヘルスケア」で HealthPulse を許可してください。" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "건강 데이터에 접근할 수 없습니다. 설정 › 건강에서 HealthPulse를 허용하세요." } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "无法访问健康数据,请在「设置 › 健康」中授权 HealthPulse。" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "无法访问健康数据,请在「设置 › 健康」中授权 HealthPulse。" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "無法存取健康資料,請在「設定 › 健康」中授權 HealthPulse。" } }
       }
     },
     "recovery.level.green" : {
@@ -323,7 +347,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "Bon" } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "良好" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "좋음" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "良好" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "良好" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "良好" } }
       }
     },
     "recovery.level.red" : {
@@ -336,7 +361,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "Faible" } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "低い" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "낮음" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "偏低" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "偏低" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "偏低" } }
       }
     },
     "recovery.level.yellow" : {
@@ -349,7 +375,8 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "Moyen" } },
         "ja" : { "stringUnit" : { "state" : "translated", "value" : "普通" } },
         "ko" : { "stringUnit" : { "state" : "translated", "value" : "보통" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "一般" } }
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "一般" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "一般" } }
       }
     },
     "settings.language.header" : {
