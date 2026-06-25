@@ -24,6 +24,7 @@
 		BF000000000000000000000F /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE000000000000000000000F /* LocalizationManager.swift */; };
 		BF0000000000000000000010 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0000000000000000000010 /* SettingsView.swift */; };
 		BF0000000000000000000011 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FE0000000000000000000011 /* Localizable.xcstrings */; };
+		BF0000000000000000000012 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FE0000000000000000000012 /* InfoPlist.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		FE000000000000000000000F /* LocalizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "LocalizationManager.swift"; path = "Shared/Services/LocalizationManager.swift"; sourceTree = SOURCE_ROOT; };
 		FE0000000000000000000010 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "SettingsView.swift"; path = "iPhone/Views/Settings/SettingsView.swift"; sourceTree = SOURCE_ROOT; };
 		FE0000000000000000000011 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = "Localizable.xcstrings"; path = "iPhone/Localizable.xcstrings"; sourceTree = SOURCE_ROOT; };
+		FE0000000000000000000012 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = "InfoPlist.xcstrings"; path = "iPhone/InfoPlist.xcstrings"; sourceTree = SOURCE_ROOT; };
 		FE00000000000000000000F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "HealthPulse/Info.plist"; sourceTree = SOURCE_ROOT; };
 		FE00000000000000000000F2 /* HealthPulse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = HealthPulse.entitlements; path = "HealthPulse/HealthPulse.entitlements"; sourceTree = SOURCE_ROOT; };
 		FE00000000000000000000F3 /* HealthPulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HealthPulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,6 +90,7 @@
 				FE000000000000000000000F /* LocalizationManager.swift */,
 				FE0000000000000000000010 /* SettingsView.swift */,
 				FE0000000000000000000011 /* Localizable.xcstrings */,
+				FE0000000000000000000012 /* InfoPlist.xcstrings */,
 				FE00000000000000000000F1 /* Info.plist */,
 				FE00000000000000000000F2 /* HealthPulse.entitlements */,
 			);
@@ -167,6 +170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF0000000000000000000011 /* Localizable.xcstrings in Resources */,
+				BF0000000000000000000012 /* InfoPlist.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

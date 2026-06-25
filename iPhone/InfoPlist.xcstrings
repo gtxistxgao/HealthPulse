@@ -1,0 +1,19 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "NSHealthShareUsageDescription" : {
+      "comment" : "System HealthKit authorization prompt: explains why the app reads Health data. Shown by iOS in the permission sheet, localized to the current system language. Source English mirrors HealthPulse/Info.plist.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "HealthPulse liest deine Gesundheitsdaten, um deine Aktivitäts- und Wellness-Trends anzuzeigen." } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "HealthPulse reads your health data to display your activity and wellness trends." } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "HealthPulse lee tus datos de salud para mostrar tus tendencias de actividad y bienestar." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "HealthPulse lit vos données de santé pour afficher vos tendances d'activité et de bien-être." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "HealthPulse はアクティビティとウェルネスの傾向を表示するために、ヘルスケアデータを読み取ります。" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "HealthPulse는 활동 및 웰니스 추세를 표시하기 위해 건강 데이터를 읽습니다." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "HealthPulse 读取你的健康数据,用于展示你的活动与健康趋势。" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}
