@@ -23,7 +23,7 @@ struct DashboardView: View {
                     guidanceState
                 }
             }
-            .navigationTitle("今日")
+            .navigationTitle("dashboard.nav.today")
         }
         .task { await viewModel.load() }
     }
@@ -46,20 +46,20 @@ struct DashboardView: View {
         LazyVGrid(columns: Self.gridColumns, spacing: 16) {
             recoveryCard(for: snapshot.recovery)
             energyCard(for: snapshot.energy)
-            comingSoonCard(title: "睡眠", systemImage: "bed.double.fill", tint: .indigo)
-            comingSoonCard(title: "消耗负荷", systemImage: "flame.fill", tint: .orange)
+            comingSoonCard(title: String(localized: "dashboard.card.sleep.title"), systemImage: "bed.double.fill", tint: .indigo)
+            comingSoonCard(title: String(localized: "dashboard.card.load.title"), systemImage: "flame.fill", tint: .orange)
         }
     }
 
     /// Recovery score rendered as a grade-coloured ring.
     private func recoveryCard(for recovery: RecoveryScore) -> some View {
-        SummaryCard(title: "恢复", systemImage: "heart.fill", tint: Self.color(for: recovery.level)) {
+        SummaryCard(title: String(localized: "dashboard.card.recovery.title"), systemImage: "heart.fill", tint: Self.color(for: recovery.level)) {
             if recovery.isInsufficientData {
                 VStack(spacing: 6) {
                     Image(systemName: "hourglass")
                         .font(.title)
                         .foregroundStyle(.secondary)
-                    Text("数据积累中")
+                    Text("dashboard.recovery.collecting")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
@@ -78,7 +78,7 @@ struct DashboardView: View {
 
     /// Today's total energy expenditure in kilocalories.
     private func energyCard(for energy: EnergySummary) -> some View {
-        SummaryCard(title: "能量", systemImage: "bolt.fill", tint: .green) {
+        SummaryCard(title: String(localized: "dashboard.card.energy.title"), systemImage: "bolt.fill", tint: .green) {
             VStack(spacing: 8) {
                 HStack(alignment: .firstTextBaseline, spacing: 4) {
                     Text("\(Int(energy.total.rounded()))")
@@ -86,13 +86,22 @@ struct DashboardView: View {
                         .monospacedDigit()
                         .lineLimit(1)
                         .minimumScaleFactor(0.6)
-                    Text("kcal")
+                    Text("dashboard.energy.unit.kcal")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
-                Text("活动 \(Int(energy.active.rounded())) · 静息 \(Int(energy.basal.rounded()))")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                Text(
+                    String(
+                        format: NSLocalizedString(
+                            "dashboard.energy.breakdown",
+                            comment: "Energy card subtitle: active vs. resting kcal; args are two Int kcal values"
+                        ),
+                        Int(energy.active.rounded()),
+                        Int(energy.basal.rounded())
+                    )
+                )
+                .font(.caption)
+                .foregroundStyle(.secondary)
             }
             .frame(height: 120)
         }
@@ -105,7 +114,7 @@ struct DashboardView: View {
                 Image(systemName: systemImage)
                     .font(.title)
                     .foregroundStyle(tint.opacity(0.5))
-                Text("即将上线")
+                Text("dashboard.card.comingSoon")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -116,35 +125,35 @@ struct DashboardView: View {
     /// The supporting metrics row (HRV / RHR / SpO₂ / respiratory rate).
     private func metricsSection(for snapshot: DashboardSnapshot) -> some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("生理指标")
+            Text("dashboard.section.vitals")
                 .font(.headline)
 
             LazyVGrid(columns: Self.gridColumns, spacing: 12) {
                 MetricCard(
-                    title: "心率变异性",
+                    title: String(localized: "dashboard.metric.hrv.title"),
                     value: Self.format(snapshot.hrv),
-                    unit: "ms",
+                    unit: String(localized: "dashboard.metric.hrv.unit"),
                     systemImage: "waveform.path.ecg",
                     tint: .green
                 )
                 MetricCard(
-                    title: "静息心率",
+                    title: String(localized: "dashboard.metric.rhr.title"),
                     value: Self.format(snapshot.rhr),
-                    unit: "bpm",
+                    unit: String(localized: "dashboard.metric.rhr.unit"),
                     systemImage: "heart.fill",
                     tint: .pink
                 )
                 MetricCard(
-                    title: "血氧",
+                    title: String(localized: "dashboard.metric.spo2.title"),
                     value: Self.format(snapshot.spo2),
-                    unit: "%",
+                    unit: String(localized: "dashboard.metric.spo2.unit"),
                     systemImage: "lungs.fill",
                     tint: .blue
                 )
                 MetricCard(
-                    title: "呼吸频率",
+                    title: String(localized: "dashboard.metric.resp.title"),
                     value: Self.format(snapshot.resp),
-                    unit: "次/分",
+                    unit: String(localized: "dashboard.metric.resp.unit"),
                     systemImage: "wind",
                     tint: .teal
                 )
@@ -157,7 +166,7 @@ struct DashboardView: View {
     private var loadingState: some View {
         VStack(spacing: 12) {
             ProgressView()
-            Text("正在读取健康数据…")
+            Text("dashboard.loading")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
         }
@@ -171,13 +180,13 @@ struct DashboardView: View {
             Image(systemName: "heart.text.square")
                 .font(.system(size: 52))
                 .foregroundStyle(.pink)
-            Text("欢迎使用 HealthPulse")
+            Text("dashboard.guidance.welcome")
                 .font(.title3.bold())
-            Text(viewModel.errorMessage ?? "授权访问「健康」数据后,这里会显示你的恢复与能量概览。")
+            Text(viewModel.errorMessage ?? String(localized: "dashboard.guidance.body"))
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
-            Button("重新加载") {
+            Button("dashboard.guidance.reload") {
                 Task { await viewModel.load() }
             }
             .buttonStyle(.borderedProminent)
@@ -196,7 +205,7 @@ struct DashboardView: View {
     /// Formats an optional reading for display, rounding to a whole number and
     /// falling back to an em dash when the value is missing.
     private static func format(_ value: Double?) -> String {
-        guard let value else { return "—" }
+        guard let value else { return String(localized: "dashboard.metric.noValue") }
         return "\(Int(value.rounded()))"
     }
 
@@ -212,9 +221,9 @@ struct DashboardView: View {
     /// Short Chinese caption shown inside the recovery ring.
     private static func label(for level: RecoveryScore.Level) -> String {
         switch level {
-        case .green: return "良好"
-        case .yellow: return "一般"
-        case .red: return "偏低"
+        case .green: return String(localized: "recovery.level.green")
+        case .yellow: return String(localized: "recovery.level.yellow")
+        case .red: return String(localized: "recovery.level.red")
         }
     }
 }

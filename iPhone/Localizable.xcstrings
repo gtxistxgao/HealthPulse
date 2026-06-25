@@ -1,0 +1,357 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "dashboard.card.comingSoon" : {
+      "comment" : "Placeholder body shown inside summary cards for features not yet implemented (was: 即将上线).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Demnächst" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Coming soon" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Próximamente" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Bientôt disponible" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "近日公開" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "곧 출시" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "即将上线" } }
+      }
+    },
+    "dashboard.card.energy.title" : {
+      "comment" : "Title of the energy summary card (was: 能量).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Energie" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Energy" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Energía" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Énergie" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "エネルギー" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "에너지" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "能量" } }
+      }
+    },
+    "dashboard.card.load.title" : {
+      "comment" : "Title of the (coming soon) exertion/strain load card (was: 消耗负荷).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Belastung" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Load" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Carga" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Charge" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "負荷" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "부하" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "消耗负荷" } }
+      }
+    },
+    "dashboard.card.recovery.title" : {
+      "comment" : "Title of the recovery summary card (was: 恢复).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Erholung" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Recovery" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Recuperación" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Récupération" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "回復" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "회복" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "恢复" } }
+      }
+    },
+    "dashboard.card.sleep.title" : {
+      "comment" : "Title of the (coming soon) sleep card (was: 睡眠).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Schlaf" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sleep" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Sueño" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Sommeil" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "睡眠" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "수면" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "睡眠" } }
+      }
+    },
+    "dashboard.energy.breakdown" : {
+      "comment" : "Energy card subtitle splitting today's total into active vs. basal calories. Format args: %1$lld = active kcal (Int), %2$lld = basal/resting kcal (Int). Keep both placeholders; reorder positionally if the target language requires it (was: 活动 %d · 静息 %d).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Aktiv %1$lld · Ruhe %2$lld" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Active %1$lld · Resting %2$lld" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Activa %1$lld · Basal %2$lld" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Actif %1$lld · Repos %2$lld" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "運動 %1$lld · 安静時 %2$lld" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "활동 %1$lld · 휴식 %2$lld" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "活动 %1$lld · 静息 %2$lld" } }
+      }
+    },
+    "dashboard.energy.unit.kcal" : {
+      "comment" : "Unit shown next to the energy total (was: kcal).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "kcal" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "kcal" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "kcal" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "kcal" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "kcal" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "kcal" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "千卡" } }
+      }
+    },
+    "dashboard.guidance.body" : {
+      "comment" : "Empty/authorization guidance body shown when there is no snapshot and no error (was: 授权访问「健康」数据后,这里会显示你的恢复与能量概览。).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Sobald du den Zugriff auf deine Gesundheitsdaten erlaubst, erscheint hier deine Übersicht zu Erholung und Energie." } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Once you grant access to your Health data, your recovery and energy overview will appear here." } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Cuando concedas acceso a tus datos de Salud, aquí aparecerá tu resumen de recuperación y energía." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Une fois l'accès à vos données Santé autorisé, votre aperçu de récupération et d'énergie s'affichera ici." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "「ヘルスケア」データへのアクセスを許可すると、回復とエネルギーの概要がここに表示されます。" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "건강 데이터 접근을 허용하면 회복 및 에너지 요약이 여기에 표시됩니다." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "授权访问「健康」数据后,这里会显示你的恢复与能量概览。" } }
+      }
+    },
+    "dashboard.guidance.reload" : {
+      "comment" : "Button that retries loading the dashboard (was: 重新加载).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Neu laden" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Reload" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Recargar" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Recharger" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "再読み込み" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "다시 불러오기" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "重新加载" } }
+      }
+    },
+    "dashboard.guidance.welcome" : {
+      "comment" : "Welcome headline on the empty/authorization guidance screen (was: 欢迎使用 HealthPulse).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Willkommen bei HealthPulse" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Welcome to HealthPulse" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Te damos la bienvenida a HealthPulse" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Bienvenue dans HealthPulse" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "HealthPulse へようこそ" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "HealthPulse에 오신 것을 환영합니다" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "欢迎使用 HealthPulse" } }
+      }
+    },
+    "dashboard.loading" : {
+      "comment" : "Spinner caption while health data is being read (was: 正在读取健康数据…).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Gesundheitsdaten werden gelesen…" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Reading health data…" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Leyendo datos de salud…" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Lecture des données de santé…" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ヘルスデータを読み込み中…" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "건강 데이터를 읽는 중…" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "正在读取健康数据…" } }
+      }
+    },
+    "dashboard.metric.hrv.title" : {
+      "comment" : "Title of the heart rate variability metric card (was: 心率变异性).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Herzfrequenzvariabilität" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Heart Rate Variability" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Variabilidad de la frecuencia cardíaca" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Variabilité de la fréquence cardiaque" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "心拍変動" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "심박 변이도" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "心率变异性" } }
+      }
+    },
+    "dashboard.metric.hrv.unit" : {
+      "comment" : "Unit for heart rate variability: milliseconds. Universal symbol, identical across locales (was: ms).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "ms" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "ms" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "ms" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "ms" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ms" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "ms" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "ms" } }
+      }
+    },
+    "dashboard.metric.noValue" : {
+      "comment" : "Fallback shown in a metric card when the reading is missing (em dash). Same glyph in every locale (was: —).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "—" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "—" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "—" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "—" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "—" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "—" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "—" } }
+      }
+    },
+    "dashboard.metric.resp.title" : {
+      "comment" : "Title of the respiratory rate metric card (was: 呼吸频率).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Atemfrequenz" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Respiratory Rate" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Frecuencia respiratoria" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Fréquence respiratoire" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "呼吸数" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "호흡수" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "呼吸频率" } }
+      }
+    },
+    "dashboard.metric.resp.unit" : {
+      "comment" : "Unit for respiratory rate: breaths per minute (was: 次/分).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "/min" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "br/min" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "resp/min" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "resp/min" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "回/分" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "회/분" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "次/分" } }
+      }
+    },
+    "dashboard.metric.rhr.title" : {
+      "comment" : "Title of the resting heart rate metric card (was: 静息心率).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Ruheherzfrequenz" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Resting Heart Rate" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Frecuencia cardíaca en reposo" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Fréquence cardiaque au repos" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "安静時心拍数" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "안정 시 심박수" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "静息心率" } }
+      }
+    },
+    "dashboard.metric.rhr.unit" : {
+      "comment" : "Unit for resting heart rate: beats per minute. Universal abbreviation, kept across locales (was: bpm).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "bpm" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "bpm" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "bpm" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "bpm" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "bpm" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "bpm" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "次/分" } }
+      }
+    },
+    "dashboard.metric.spo2.title" : {
+      "comment" : "Title of the blood oxygen metric card (was: 血氧).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Blutsauerstoff" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Blood Oxygen" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Oxígeno en sangre" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Oxygène sanguin" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "血中酸素" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "혈중 산소" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "血氧" } }
+      }
+    },
+    "dashboard.metric.spo2.unit" : {
+      "comment" : "Unit for blood oxygen saturation: percent. Universal symbol, identical across locales (was: %).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "%" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "%" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "%" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "%" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "%" } }
+      }
+    },
+    "dashboard.nav.today" : {
+      "comment" : "Navigation title of the dashboard home screen (was: 今日).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Heute" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Today" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Hoy" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Aujourd'hui" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "今日" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "오늘" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "今日" } }
+      }
+    },
+    "dashboard.recovery.collecting" : {
+      "comment" : "Shown inside the recovery ring when there is not enough history to score yet (was: 数据积累中).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Daten werden gesammelt" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Collecting data" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Recopilando datos" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Collecte des données" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "データを収集中" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "데이터 수집 중" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "数据积累中" } }
+      }
+    },
+    "dashboard.section.vitals" : {
+      "comment" : "Header above the supporting physiological metrics row (was: 生理指标).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Vitaldaten" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Vitals" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Constantes vitales" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Signes vitaux" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "バイタル" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "생체 지표" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "生理指标" } }
+      }
+    },
+    "healthkit.auth.denied" : {
+      "comment" : "Error message when HealthKit access is unavailable, set on DashboardViewModel.errorMessage. The arrow › separates the iOS Settings path (was: 无法访问健康数据,请在「设置 › 健康」中授权 HealthPulse。).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Kein Zugriff auf Gesundheitsdaten. Erlaube HealthPulse unter Einstellungen › Health." } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Can't access health data. Allow HealthPulse in Settings › Health." } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "No se puede acceder a los datos de salud. Autoriza HealthPulse en Ajustes › Salud." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Impossible d'accéder aux données de santé. Autorisez HealthPulse dans Réglages › Santé." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ヘルスデータにアクセスできません。「設定 › ヘルスケア」で HealthPulse を許可してください。" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "건강 데이터에 접근할 수 없습니다. 설정 › 건강에서 HealthPulse를 허용하세요." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "无法访问健康数据,请在「设置 › 健康」中授权 HealthPulse。" } }
+      }
+    },
+    "recovery.level.green" : {
+      "comment" : "Recovery ring caption for a good (green) recovery level (was: 良好).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Gut" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Good" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Bueno" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Bon" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "良好" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "좋음" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "良好" } }
+      }
+    },
+    "recovery.level.red" : {
+      "comment" : "Recovery ring caption for a low (red) recovery level (was: 偏低).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Niedrig" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Low" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Bajo" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Faible" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "低い" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "낮음" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "偏低" } }
+      }
+    },
+    "recovery.level.yellow" : {
+      "comment" : "Recovery ring caption for a fair (yellow) recovery level (was: 一般).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Mäßig" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Fair" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Regular" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Moyen" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "普通" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "보통" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "一般" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

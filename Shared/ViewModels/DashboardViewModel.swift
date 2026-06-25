@@ -43,7 +43,7 @@ final class DashboardViewModel: ObservableObject {
         await healthKit.requestAuthorization()
 
         guard healthKit.isAuthorized else {
-            errorMessage = "无法访问健康数据,请在「设置 › 健康」中授权 HealthPulse。"
+            errorMessage = String(localized: "healthkit.auth.denied")
             return
         }
 
