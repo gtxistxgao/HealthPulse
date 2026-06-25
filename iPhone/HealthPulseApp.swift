@@ -24,6 +24,7 @@ struct HealthPulseApp: App {
                 .environmentObject(healthKitManager)
                 .environmentObject(dashboardViewModel)
                 .environmentObject(localizationManager)
+                .environment(\.locale, localizationManager.locale)
         }
     }
 }
